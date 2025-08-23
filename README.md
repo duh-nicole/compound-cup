@@ -38,7 +38,7 @@ Compound-Cup is no longer just a simple calculator—it's a sleek, modern financ
 
 📸 Screenshots
 
-(Optional: Add an image preview showing the calculator and chart.)
+![...](compound-cup.png)
 
 ✨ Future Plans
 
