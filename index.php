@@ -4,96 +4,101 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Compound Interest Calculator</title>
-    <!-- Use Tailwind CSS for a modern, responsive design -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Chart.js library for creating the growth chart -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <style>
-        /* Custom styles to enhance the design */
-        body {
-            font-family: 'Inter', sans-serif;
-        }
-        .result-panel {
-            min-height: 100px;
-        }
+        body { font-family: 'Inter', sans-serif; }
+        .result-panel { min-height: 100px; }
     </style>
 </head>
-<body class="bg-stone-900 flex items-center justify-center min-h-screen p-4">
+<body class="bg-[#1A0F0A] flex items-center justify-center min-h-screen p-4">
 
-    <!-- Main application container -->
-    <main class="w-full max-w-2xl bg-stone-800 shadow-xl rounded-2xl p-6 md:p-10 border border-stone-700">
+    <main class="w-full max-w-2xl bg-[#2D1B14] shadow-2xl rounded-2xl p-6 border border-[#3E2723]">
         
-        <!-- Header Section -->
         <header class="text-center mb-8">
-            <h1 class="text-4xl md:text-5xl font-extrabold text-stone-200 leading-tight">
+            <h1 class="text-4xl md:text-5xl font-extrabold text-[#F5EFE6] leading-tight">
                 Compound Interest Calculator
             </h1>
-            <p class="mt-2 text-md text-stone-400">
+            <p class="mt-2 text-md text-[#D4A373]">
                 Visualize the growth of your investments over time.
             </p>
-        </header>
+        </header>    
 
-        <!-- Input form and result display -->
         <div class="space-y-6">
-
-            <!-- Input fields -->
-            <div class="space-y-4">
-                <div>
-                    <label for="principal" class="block text-sm font-medium text-stone-200">Initial Investment ($)</label>
-                    <input type="number" id="principal" class="mt-1 block w-full rounded-md bg-stone-700 text-stone-200 border-stone-600 shadow-sm focus:border-lime-400 focus:ring focus:ring-amber-500 focus:ring-opacity-50" min="0" step="100" placeholder="e.g., 1000">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="md:col-span-2">
+                    <label for="principal" class="block text-sm font-medium text-[#F5EFE6]">Initial Investment ($)</label>
+                    <input type="number" id="principal" class="mt-1 block w-full rounded-md bg-[#3E2723] text-[#F5EFE6] border-[#4E342E] shadow-sm focus:border-[#D4A373] focus:ring focus:ring-[#D4A373] focus:ring-opacity-50 p-2" placeholder="e.g., 1000">
                 </div>
                 <div>
-                    <label for="contribution" class="block text-sm font-medium text-stone-200">Monthly Contribution ($)</label>
-                    <input type="number" id="contribution" class="mt-1 block w-full rounded-md bg-stone-700 text-stone-200 border-stone-600 shadow-sm focus:border-lime-400 focus:ring focus:ring-amber-500 focus:ring-opacity-50" min="0" step="50" placeholder="e.g., 100">
+                    <label for="contribution" class="block text-sm font-medium text-[#F5EFE6]">Monthly Contribution ($)</label>
+                    <input type="number" id="contribution" class="mt-1 block w-full rounded-md bg-[#3E2723] text-[#F5EFE6] border-[#4E342E] shadow-sm focus:border-[#D4A373] focus:ring focus:ring-[#D4A373] focus:ring-opacity-50 p-2" placeholder="e.g., 100">
                 </div>
                 <div>
-                    <label for="rate" class="block text-sm font-medium text-stone-200">Annual Interest Rate (%)</label>
-                    <input type="number" id="rate" class="mt-1 block w-full rounded-md bg-stone-700 text-stone-200 border-stone-600 shadow-sm focus:border-lime-400 focus:ring focus:ring-amber-500 focus:ring-opacity-50" min="0" step="0.1" placeholder="e.g., 5">
+                    <label for="rate" class="block text-sm font-medium text-[#F5EFE6]">Annual Interest Rate (%)</label>
+                    <input type="number" id="rate" class="mt-1 block w-full rounded-md bg-[#3E2723] text-[#F5EFE6] border-[#4E342E] shadow-sm focus:border-[#D4A373] focus:ring focus:ring-[#D4A373] focus:ring-opacity-50 p-2" placeholder="e.g., 5">
                 </div>
                 <div>
-                    <label for="years" class="block text-sm font-medium text-stone-200">Investment Years</label>
-                    <input type="number" id="years" class="mt-1 block w-full rounded-md bg-stone-700 text-stone-200 border-stone-600 shadow-sm focus:border-lime-400 focus:ring focus:ring-amber-500 focus:ring-opacity-50" min="1" step="1" placeholder="e.g., 10">
+                    <label for="years" class="block text-sm font-medium text-[#F5EFE6]">Investment Years</label>
+                    <input type="number" id="years" class="mt-1 block w-full rounded-md bg-[#3E2723] text-[#F5EFE6] border-[#4E342E] shadow-sm focus:border-[#D4A373] focus:ring focus:ring-[#D4A373] focus:ring-opacity-50 p-2" placeholder="e.g., 10">
                 </div>
                 <div>
-                    <label for="frequency" class="block text-sm font-medium text-stone-200">Compounding Frequency</label>
-                    <select id="frequency" class="mt-1 block w-full rounded-md bg-stone-700 text-stone-200 border-stone-600 shadow-sm focus:border-lime-400 focus:ring focus:ring-amber-500 focus:ring-opacity-50">
+                    <label for="frequency" class="block text-sm font-medium text-[#F5EFE6]">Compounding</label>
+                    <select id="frequency" class="mt-1 block w-full rounded-md bg-[#3E2723] text-[#F5EFE6] border-[#4E342E] shadow-sm focus:border-[#D4A373] focus:ring focus:ring-[#D4A373] focus:ring-opacity-50 p-2">
                         <option value="1">Annually</option>
-                        <option value="2">Semi-Annually</option>
-                        <option value="4">Quarterly</option>
                         <option value="12" selected>Monthly</option>
                         <option value="365">Daily</option>
                     </select>
                 </div>
             </div>
 
-            <!-- Action buttons -->
-            <div class="flex justify-center mt-6">
-                <button id="reset-btn" class="w-full px-6 py-3 font-semibold text-stone-900 bg-amber-500 rounded-xl hover:bg-amber-600 transition-colors shadow-lg">
+            <div class="grid grid-cols-2 gap-4 mt-6">
+                <button id="reset-btn" class="px-6 py-3 font-bold text-[#2D1B14] bg-[#F5EFE6] rounded-xl hover:bg-[#D4A373] transition-colors shadow-lg">
                     Reset
+                </button>
+                <button id="download-btn" class="px-6 py-3 font-bold text-[#F5EFE6] bg-[#3E2723] border border-[#D4A373] rounded-xl hover:bg-[#4E342E] transition-colors shadow-lg">
+                    Download PDF
                 </button>
             </div>
             
-            <!-- Live results display section -->
-            <section id="results-section" class="mt-8 pt-6 border-t border-stone-700">
-                <div id="results-display" class="result-panel flex flex-col items-center justify-center p-6 bg-stone-700 rounded-xl border border-dashed border-stone-600">
-                    <p class="text-lg text-stone-400">
-                        Enter your investment details to see the results.
-                    </p>
+            <section id="results-section" class="mt-8 pt-6 border-t border-[#3E2723]">
+                <div id="results-display" class="result-panel flex flex-col items-center justify-center p-6 bg-[#3E2723] rounded-xl border border-dashed border-[#4E342E]">
+                    <p class="text-lg text-[#D4A373]">Enter details to see your growth.</p>
                 </div>
             </section>
 
-            <!-- Chart section -->
-            <section id="chart-section" class="mt-8 pt-6 border-t border-stone-700 hidden">
-                <h2 class="text-2xl font-bold text-stone-200 text-center mb-4">Investment Growth</h2>
-                <div class="bg-stone-700 p-4 rounded-xl">
+            <section id="chart-section" class="mt-8 pt-6 border-t border-[#3E2723] hidden">
+                <h2 class="text-xl font-bold text-[#F5EFE6] text-center mb-4">Investment Growth</h2>
+                <div class="bg-[#3E2723] p-4 rounded-xl h-64">
                     <canvas id="growthChart"></canvas>
                 </div>
             </section>
         </div>
 
+        <section class="mt-8 pt-4 border-t border-[#4E342E]">
+            <div class="bg-[#1A0F0A] p-4 rounded-lg border-l-4 border-[#D4A373]">
+                <h4 class="text-xs font-bold uppercase tracking-widest text-[#D4A373] mb-1">Espresso Shot of Wisdom</h4>
+                <p id="tip-display" class="text-sm text-[#F5EFE6] italic">
+                    "Compound interest is the eighth wonder of the world." — Albert Einstein
+                </p>
+            </div>
+        </section>
     </main>
 
     <script>
+        const { jsPDF } = window.jspdf;
+
+        const tips = [
+            "The SEC notes that even small amounts invested early can grow significantly due to compounding.",
+            "According to the CFPB, a good rule of thumb is to keep your total debt-to-income ratio below 36%.",
+            "SEC Tip: Diversification doesn't guarantee a profit, but it can help manage investment risk.",
+            "The 'Rule of 72' is a quick way to estimate how long it takes for your money to double (72 ÷ Interest Rate).",
+            "Government data shows that the earlier you start, the less you have to save per month to reach your goal.",
+            "IRS Fact: Contributions to a traditional IRA may be tax-deductible depending on your income.",
+            "The Social Security Administration reminds workers that benefits replace about 40% of pre-retirement income."
+        ];
+
         const principalInput = document.getElementById('principal');
         const contributionInput = document.getElementById('contribution');
         const rateInput = document.getElementById('rate');
@@ -101,239 +106,137 @@
         const frequencyInput = document.getElementById('frequency');
         const resultsDisplay = document.getElementById('results-display');
         const resetBtn = document.getElementById('reset-btn');
+        const downloadBtn = document.getElementById('download-btn');
         const chartSection = document.getElementById('chart-section');
         const chartCanvas = document.getElementById('growthChart');
+        const tipDisplay = document.getElementById('tip-display');
 
-        let myChart; // Variable to hold the Chart.js instance
+        let myChart;
+        let lastCalculation = null;
 
-        /**
-         * Renders a line chart to visualize the growth of the investment over time.
-         * @param {string[]} labels - Array of year labels.
-         * @param {number[]} data - Array of the final balance for each year.
-         * @param {number[]} contributionsData - Array of total contributions for each year.
-         */
+        function updateTip() {
+            const randomTip = tips[Math.floor(Math.random() * tips.length)];
+            tipDisplay.innerText = randomTip;
+        }
+
         function renderChart(labels, data, contributionsData) {
-            // Destroy previous chart instance if it exists to prevent overlap
-            if (myChart) {
-                myChart.destroy();
-            }
-
+            if (myChart) { myChart.destroy(); }
             const ctx = chartCanvas.getContext('2d');
             myChart = new Chart(ctx, {
                 type: 'line',
                 data: {
                     labels: labels,
                     datasets: [
-                        {
-                            label: 'Total Value',
-                            data: data,
-                            borderColor: '#facc15', // Amber 500
-                            backgroundColor: 'rgba(252, 211, 77, 0.2)',
-                            tension: 0.1,
-                            fill: true,
-                            borderWidth: 2,
-                            pointRadius: 3,
-                            pointBackgroundColor: '#facc15'
-                        },
-                        {
-                            label: 'Total Contributions',
-                            data: contributionsData,
-                            borderColor: '#4ade80', // Lime 400
-                            backgroundColor: 'rgba(74, 222, 128, 0.2)',
-                            tension: 0.1,
-                            borderWidth: 2,
-                            pointRadius: 3,
-                            pointBackgroundColor: '#4ade80'
-                        }
+                        { label: 'Total Value', data: data, borderColor: '#D4A373', backgroundColor: 'rgba(212, 163, 115, 0.2)', tension: 0.3, fill: true },
+                        { label: 'Total Contributions', data: contributionsData, borderColor: '#F5EFE6', backgroundColor: 'rgba(245, 239, 230, 0.1)', tension: 0.3, fill: true }
                     ]
                 },
                 options: {
                     responsive: true,
                     maintainAspectRatio: false,
                     scales: {
-                        x: {
-                            grid: { color: 'rgba(255, 255, 255, 0.1)' },
-                            title: {
-                                display: true,
-                                text: 'Years',
-                                color: '#e5e5e5'
-                            },
-                            ticks: {
-                                color: '#e5e5e5'
-                            }
-                        },
-                        y: {
-                            grid: { color: 'rgba(255, 255, 255, 0.1)' },
-                            title: {
-                                display: true,
-                                text: 'Value ($)',
-                                color: '#e5e5e5'
-                            },
-                            ticks: {
-                                color: '#e5e5e5',
-                                callback: function(value) {
-                                    return '$' + value.toLocaleString();
-                                }
-                            }
-                        }
+                        x: { ticks: { color: '#F5EFE6' }, grid: { display: false } },
+                        y: { ticks: { color: '#F5EFE6', callback: v => '$' + v.toLocaleString() }, grid: { color: '#4E342E' } }
                     },
-                    plugins: {
-                        legend: {
-                            labels: {
-                                color: '#e5e5e5'
-                            }
-                        },
-                        tooltip: {
-                            callbacks: {
-                                label: function(context) {
-                                    let label = context.dataset.label || '';
-                                    if (label) {
-                                        label += ': ';
-                                    }
-                                    if (context.parsed.y !== null) {
-                                        label += new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(context.parsed.y);
-                                    }
-                                    return label;
-                                }
-                            }
-                        }
-                    }
+                    plugins: { legend: { labels: { color: '#F5EFE6' } } }
                 }
             });
         }
 
-        /**
-         * Calculates and displays the compound interest results, including regular contributions.
-         */
         function calculateAndDisplay() {
-            // Get user inputs
             const P = parseFloat(principalInput.value) || 0;
             const PMT = parseFloat(contributionInput.value) || 0;
-            const r = parseFloat(rateInput.value) / 100 || 0;
+            const r = (parseFloat(rateInput.value) / 100) || 0;
             const t = parseInt(yearsInput.value) || 0;
             const n = parseFloat(frequencyInput.value) || 12;
 
-            // Check for valid inputs before calculating
-            if (P <= 0 && PMT <= 0 || r < 0 || t <= 0) {
-                resultsDisplay.innerHTML = `<p class="text-lg text-stone-400">Enter your investment details to see the results.</p>`;
+            if (P <= 0 && PMT <= 0 || t <= 0) {
                 chartSection.classList.add('hidden');
+                lastCalculation = null;
                 return;
             }
 
-            // Calculate future value with regular contributions
-            let finalAmount;
-            if (r === 0) {
-                // Handle 0% interest rate to avoid division by zero
-                finalAmount = P + (PMT * 12 * t);
-            } else {
-                // Formula for future value with regular contributions
-                const compoundFactor = Math.pow((1 + r / n), (n * t));
-                const contributionFactor = ((compoundFactor - 1) / (r / n)) * (1 + r / n);
-                finalAmount = P * compoundFactor + (PMT * 12 / n) * contributionFactor;
-            }
-            const interestEarned = finalAmount - P - (PMT * 12 * t);
-            
-            // Generate data for the chart
-            const labels = [];
-            const data = [];
-            const contributionsData = [];
-            let currentPrincipal = P;
-            let totalContributions = 0;
+            const compoundFactor = Math.pow((1 + r / n), (n * t));
+            const contributionFactor = r === 0 ? t * n : (compoundFactor - 1) / (r / n);
+            const finalAmount = P * compoundFactor + (PMT * contributionFactor);
+            const totalContributed = P + (PMT * 12 * t);
+            const interestEarned = finalAmount - totalContributed;
 
-            for (let year = 0; year <= t; year++) {
-                labels.push(year);
-                if (year === 0) {
-                    data.push(P);
-                    contributionsData.push(P);
-                } else {
-                    let yearAmount;
-                    if (r === 0) {
-                        yearAmount = P + (PMT * 12 * year);
-                    } else {
-                        const compoundFactor = Math.pow((1 + r / n), (n * year));
-                        const contributionFactor = ((compoundFactor - 1) / (r / n)) * (1 + r / n);
-                        yearAmount = P * compoundFactor + (PMT * 12 / n) * contributionFactor;
-                    }
-                    data.push(yearAmount);
-                    totalContributions += PMT * 12;
-                    contributionsData.push(P + totalContributions);
-                }
+            lastCalculation = { P, PMT, r, t, finalAmount, totalContributed, interestEarned };
+
+            const labels = []; const data = []; const contributionsData = [];
+            for (let i = 0; i <= t; i++) {
+                labels.push('Year ' + i);
+                const amt = P * Math.pow((1 + r / n), (n * i)) + (PMT * (r === 0 ? i * n : (Math.pow((1 + r / n), (n * i)) - 1) / (r / n)));
+                data.push(amt.toFixed(2));
+                contributionsData.push((P + (PMT * 12 * i)).toFixed(2));
             }
-            
-            // Display results
+
             resultsDisplay.innerHTML = `
                 <div class="text-center">
-                    <div class="text-sm font-medium text-stone-400">Final Balance</div>
-                    <div class="text-5xl font-extrabold text-amber-500 mb-2">
-                        $${finalAmount.toFixed(2)}
-                    </div>
-                    <div class="text-sm font-semibold text-stone-400">
-                        Interest Earned: <span class="text-lime-400 font-bold">$${interestEarned.toFixed(2)}</span>
-                    </div>
-                </div>
-            `;
+                    <div class="text-sm font-medium text-[#D4A373]">Final Balance</div>
+                    <div class="text-5xl font-extrabold text-[#F5EFE6] mb-2">$${finalAmount.toLocaleString(undefined, {maximumFractionDigits: 2})}</div>
+                    <div class="text-sm font-semibold text-[#D4A373]">Interest: <span class="text-[#F5EFE6]">$${interestEarned.toLocaleString(undefined, {maximumFractionDigits: 2})}</span></div>
+                </div>`;
             
-            // Show the chart section and render the chart
             chartSection.classList.remove('hidden');
             renderChart(labels, data, contributionsData);
-            
-            // Save data after successful calculation
-            saveData();
         }
 
-        /**
-         * Saves all current input data to localStorage.
-         */
-        function saveData() {
-            const data = {
-                principal: principalInput.value,
-                contribution: contributionInput.value,
-                rate: rateInput.value,
-                years: yearsInput.value,
-                frequency: frequencyInput.value
-            };
-            localStorage.setItem('compounderData', JSON.stringify(data));
-        }
-
-        /**
-         * Loads saved data from localStorage and populates the form.
-         */
-        function loadData() {
-            const savedData = localStorage.getItem('compounderData');
-            if (savedData) {
-                const data = JSON.parse(savedData);
-                principalInput.value = data.principal || '';
-                contributionInput.value = data.contribution || '';
-                rateInput.value = data.rate || '';
-                yearsInput.value = data.years || '';
-                frequencyInput.value = data.frequency || '12';
+        function downloadPDF() {
+            if (!lastCalculation) {
+                alert("Please enter some numbers first!");
+                return;
             }
-            calculateAndDisplay();
+            const doc = new jsPDF();
+            const { P, PMT, r, t, finalAmount, totalContributed, interestEarned } = lastCalculation;
+
+            doc.setFillColor(45, 27, 20);
+            doc.rect(0, 0, 210, 40, 'F');
+            
+            doc.setTextColor(245, 239, 230);
+            doc.setFontSize(22);
+            doc.text("Investment Growth Report", 20, 25);
+
+            doc.setTextColor(45, 27, 20);
+            doc.setFontSize(12);
+            doc.text(`Initial Investment: $${P.toLocaleString()}`, 20, 60);
+            doc.text(`Monthly Contribution: $${PMT.toLocaleString()}`, 20, 70);
+            doc.text(`Annual Interest Rate: ${r * 100}%`, 20, 80);
+            doc.text(`Investment Period: ${t} Years`, 20, 90);
+
+            doc.setDrawColor(212, 163, 115);
+            doc.line(20, 100, 190, 100);
+
+            doc.setFontSize(16);
+            doc.text("Summary Results", 20, 115);
+            doc.setFontSize(12);
+            doc.text(`Total Contributions: $${totalContributed.toLocaleString()}`, 20, 130);
+            doc.text(`Total Interest Earned: $${interestEarned.toLocaleString()}`, 20, 140);
+            
+            doc.setFontSize(18);
+            doc.setTextColor(184, 134, 11);
+            doc.text(`Final Projected Balance: $${finalAmount.toLocaleString()}`, 20, 160);
+
+            doc.setFontSize(10);
+            doc.setTextColor(100, 100, 100);
+            doc.text("Generated by CodeLatte Financial Tools", 20, 280);
+
+            doc.save("Investment_Scenario.pdf");
         }
 
-        /**
-         * Clears all input fields and removes data from localStorage.
-         */
-        function clearAll() {
-            principalInput.value = '';
-            contributionInput.value = '';
-            rateInput.value = '';
-            yearsInput.value = '';
-            frequencyInput.value = '12';
-            localStorage.removeItem('compounderData');
-            calculateAndDisplay();
-        }
-
-        // Add event listeners for live calculation and saving
         [principalInput, contributionInput, rateInput, yearsInput, frequencyInput].forEach(input => {
             input.addEventListener('input', calculateAndDisplay);
         });
 
-        // Add event listener for the reset button
-        resetBtn.addEventListener('click', clearAll);
+        resetBtn.addEventListener('click', () => {
+            [principalInput, contributionInput, rateInput, yearsInput].forEach(i => i.value = '');
+            resultsDisplay.innerHTML = `<p class="text-lg text-[#D4A373]">Enter details to see your growth.</p>`;
+            chartSection.classList.add('hidden');
+            updateTip();
+        });
 
-        // Initialize the app on page load by attempting to load saved data
-        document.addEventListener('DOMContentLoaded', loadData);
+        downloadBtn.addEventListener('click', downloadPDF);
     </script>
 </body>
 </html>
