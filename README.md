@@ -1,32 +1,46 @@
-compound-cup ✨
+# ☕ Compound Interest Calculator & Visualizer
 
-A calculated brew that now helps you build a financial empire, one sip at a time.
+A responsive, client-side web application designed to project long-term investment growth. Built with vanilla JavaScript and Tailwind CSS, it features real-time dynamic compounding calculations, interactive Chart.js visualizations, and instant PDF report generation.
 
-📝 Overview
+---
 
-Compound-Cup is no longer just a simple calculator—it's a sleek, modern financial tool for visualizing and planning your investment growth. Whether you're a student, a dedicated saver, or just curious, this app helps you see the real power of compounding interest with a side of fun, retro-inspired UI.
+## ✨ Key Features
 
-⚙️ Features
+* **Real-Time Growth Calculations:** Instantly updates projected final balances, total contributions, and compound interest earned as inputs change.
+* **Flexible Compounding Frequency:** Supports Annual, Monthly, and Daily compounding schedules using exact interest formulas.
+* **Interactive Data Visualization:** Integrates **Chart.js** to render dynamic line graphs comparing total portfolio value against principal contributions over time.
+* **Client-Side PDF Export:** Utilizes **jsPDF** to generate a downloadable, formatted summary report (`Investment_Scenario.pdf`) directly from the browser.
+* **Dynamic Financial Wisdom:** Displays rotating financial tips and quotes ("Espresso Shot of Wisdom") on each calculation or reset.
+* **Custom Coffee-Themed UI:** Clean, dark-mode design styled using **Tailwind CSS**.
 
-    Initial Investment & Contributions: Start with a principal amount and add optional monthly contributions to see how regular saving accelerates your growth.
+---
 
-    Dynamic Calculations: Input your interest rate, years, and compounding frequency to get instant, accurate results.
+## 🛠️ Tech Stack
 
-    Visual Growth: A beautiful line chart plots your investment's journey over time, making exponential growth easy to understand.
+* **Frontend:** HTML5, JavaScript (ES6+)
+* **Styling:** [Tailwind CSS](https://tailwindcss.com/) (via CDN)
+* **Data Visualization:** [Chart.js](https://www.chartjs.org/)
+* **Document Generation:** [jsPDF](https://github.com/parallax/jsPDF)
 
-    Smart & Savvy: All of your data is automatically saved in your browser, so you can come back anytime and your inputs will be waiting for you.
+---
 
-    Quick Reset: A single "Reset" button clears all fields and gets you ready for your next calculation.
+## 🧮 Mathematical Model
 
-🧰 Tech Stack
+The calculator models growth using standard compound interest formulas:
 
-    HTML: The foundation of the app.
+1. **Compound Interest on Principal ($P$):**
+   $$A_{principal} = P \left(1 + \frac{r}{n}\right)^{nt}$$
 
-    JavaScript: The brains behind all the live calculations, data saving, and chart rendering.
+2. **Future Value of Periodic Contributions ($PMT$):**
+   $$A_{contributions} = PMT \times \frac{\left(1 + \frac{r}{n}\right)^{nt} - 1}{\frac{r}{n}}$$
 
-    Tailwind CSS: The modern framework used for all the styling and responsiveness.
+Where:
+* $P$ = Initial Investment Principal
+* $PMT$ = Monthly Contribution Amount
+* $r$ = Annual Interest Rate (decimal)
+* $n$ = Compounding frequency per year ($1, 12, 365$)
+* $t$ = Total Investment Period (Years)
 
-    Chart.js: A powerful JavaScript library that creates the dynamic growth chart.
 
 🚀 Getting Started
 
